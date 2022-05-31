@@ -1,3 +1,4 @@
+import time
 import logging
 
 from sensor.Sensor import Sensor
@@ -10,9 +11,9 @@ class SensorManager:
     Sensor manager that allows to add sensors, calling their get_measurement() 
     function in their preferred time interval. 
     '''
-    def __init__(self):
+    def __init__(self, config):
         self.timers = []
-        self.mqtt = MQTTManager() # todo: move mqtt manager out of the sensor manager
+        self.mqtt = MQTTManager(config) # todo: move mqtt manager out of the sensor manager
 
     def add_sensor(self, sensor) -> None:
         # create a new IntervalTimer for the sensor to add

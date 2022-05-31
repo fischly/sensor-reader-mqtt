@@ -1,14 +1,15 @@
-import json
 import logging
 import paho.mqtt.client as mqtt
 
 class MQTTManager():
     '''Manages the MQTT client, connection and publishing.'''
-    def __init__(self, host, port, topic, qos):
-        self.address = host
-        self.port = port
-        self.topic = topic
-        self.qos = qos
+    def __init__(self, config):
+        mqtt_config = config.get('mqtt', {})
+
+        self.address    = mqtt_config.get('host', 'localhost')
+        self.port       = mqtt_config.get('port', 13337)
+        self.topic      = mqtt_config.get('topic', 'localhost')
+        self.qos        = mqtt_config.get('qos', 0)
         
         self.client = mqtt.Client()
         self.client.on_connect = lambda client, userdata, flags, rc: logging.warning('Connected with result code {}'.format(str(rc)))
