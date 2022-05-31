@@ -1,0 +1,8 @@
+{
+    "mqtt": {
+        "host": "localhost",
+        "port": 13337,
+        "topic": "dci-test",
+        "qos": 0
+    }
+}

@@ -4,10 +4,11 @@ import paho.mqtt.client as mqtt
 
 class MQTTManager():
     '''Manages the MQTT client, connection and publishing.'''
-    def __init__(self):
-        self.port = 13337           # todo: move to config file
-        self.address = 'localhost'  # todo: move to config file
-        self.topic = 'dci-test' # todo: move to config file
+    def __init__(self, host, port, topic, qos):
+        self.address = host
+        self.port = port
+        self.topic = topic
+        self.qos = qos
         
         self.client = mqtt.Client()
         self.client.on_connect = lambda client, userdata, flags, rc: logging.warning('Connected with result code {}'.format(str(rc)))
@@ -19,7 +20,7 @@ class MQTTManager():
         
         print('[send_object] sending {}'.format(data_to_send))
         
-        self.client.publish(self.topic, payload=data_to_send, qos=0)
+        self.client.publish(self.topic, payload=data_to_send, qos=self.qos)
         
     def disconnect(self):
         '''Disconnects the underlying MQTT client.'''
