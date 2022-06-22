@@ -31,4 +31,6 @@ class SensorManager:
     def do_measurment(self, sensor):
         measured_value = sensor.get_measurement()
         print('[do_measurment] self: {0}. sensor: {1} ===> measured: {2}'.format(self, sensor, measured_value))
-        self.mqtt.send_object({ 'name': sensor.name(), 'value': measured_value })
+        
+        # send the sensor name, the measured value and the measuring time in milliseconds since epoch
+        self.mqtt.send_object({ 'name': sensor.name(), 'value': measured_value, 'send_time': time.time_ns() // 1_000_000 })
