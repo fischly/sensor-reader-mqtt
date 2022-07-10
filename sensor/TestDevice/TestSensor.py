@@ -6,19 +6,19 @@ class TestSensor(Sensor):
     def __init__(self, device):
         self._device = device
 
-    def name(self) -> str:
+    def get_name(self) -> str:
         '''The sensor's (unique) name.'''
         return 'TestSensor 1'
 
-    def device(self):
+    def get_device(self):
         '''The device this sensor belongs to.'''
         return self._device
     
-    def preferred_measure_interval(self) -> int:
+    def get_preferred_measure_interval(self) -> int:
         '''The preferred interval for doing measurments, in seconds.'''
         return 2
 
-    def unit(self) -> str:
+    def get_unit(self) -> str:
         '''The unit of this sensor's measurements.'''
         return '°C'
     

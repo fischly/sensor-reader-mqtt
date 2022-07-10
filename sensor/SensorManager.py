@@ -25,7 +25,7 @@ class SensorManager:
         # create a new IntervalTimer for each sensor of this device
         for sensor in sensor_device.get_sensors():
             sensor_timer = IntervalTimer(
-                sensor.preferred_measure_interval(),  # timer interval
+                sensor.get_preferred_measure_interval(),  # timer interval
                 self.do_measurment,                   # callback for timer             
                 sensor                                # argument used for calling the callback
             )
@@ -33,11 +33,17 @@ class SensorManager:
             # store it in the timers list
             self.timers.append(sensor_timer)
         
-            logging.warning('[add_sensor] added the sensor {} with unit {} and a measure interval of {} seconds, belonging to device {} to the SensorManager'.format(sensor.name(), sensor.unit(), sensor.preferred_measure_interval(), sensor.device().name()))
+            logging.warning('[add_sensor] added the sensor {} with unit {} and a measure interval of {} seconds, belonging to device {} to the SensorManager'.format(sensor.get_name(), sensor.get_unit(), sensor.get_preferred_measure_interval(), sensor.get_device().get_name()))
         
     def do_measurment(self, sensor):
         measured_value = sensor.get_measurement()
-        print('[do_measurment] self: {0}. sensor: {1} ===> measured: {2}'.format(self, sensor.name(), measured_value))
+        print('[do_measurment] self: {0}. sensor: {1} ===> measured: {2}'.format(self, sensor.get_name(), measured_value))
         
         # send the sensor name, the measured value and the measuring time in milliseconds since epoch
-        self.mqtt.send_object({ 'name': sensor.name(), 'value': measured_value, 'device': sensor.device().name(), 'send_time': time.time_ns() // 1_000_000 })
+        self.mqtt.send_object({ 
+            'name': sensor.get_name(),
+            'value': measured_value,
+            'unit': sensor.get_unit(),
+            'device': sensor.get_device().get_name(),
+            'send_time': time.time_ns() // 1_000_000
+        })

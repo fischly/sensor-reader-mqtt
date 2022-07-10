@@ -14,7 +14,7 @@ class TestDevice(SensorDevice):
         ]
         pass
 
-    def name(self):
+    def get_name(self):
         return "TestDevice"
 
     def get_sensors(self):

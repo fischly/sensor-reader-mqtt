@@ -7,22 +7,22 @@ class Sensor(ABC):
     '''Abstract base class that can be used to implement custom sensor logic.'''
     
     @abstractmethod
-    def name(self) -> str:
+    def get_name(self) -> str:
         '''The sensor's (unique) name.'''
         pass
 
     @abstractmethod
-    def device(self):
+    def get_device(self):
         '''The device this sensor belongs to.'''
         pass
     
     @abstractmethod
-    def preferred_measure_interval(self) -> int:
+    def get_preferred_measure_interval(self) -> int:
         '''The preferred interval for doing measurments, in seconds.'''
         pass
 
     @abstractmethod
-    def unit(self) -> str:
+    def get_unit(self) -> str:
         '''The unit of this sensor's measurements.'''
         pass
     

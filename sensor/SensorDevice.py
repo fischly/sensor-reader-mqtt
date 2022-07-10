@@ -12,7 +12,7 @@ class SensorDevice(ABC):
     '''
     
     @abstractmethod
-    def name(self) -> str:
+    def get_name(self) -> str:
         '''This device's name.'''
         pass
     
