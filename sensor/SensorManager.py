@@ -15,7 +15,7 @@ class SensorManager:
     def __init__(self, config):
         self.devices = []
         self.timers = []
-        # self.mqtt = MQTTManager(config) # todo: move mqtt manager out of the sensor manager
+        self.mqtt = MQTTManager(config) # todo: move mqtt manager out of the sensor manager
 
     def add_sensor_device(self, sensor_device) -> None:
 
