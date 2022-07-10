@@ -1,32 +1,27 @@
-from abc import ABC, abstractmethod
+import random 
 
-# from . import SensorDevice
+from sensor.Sensor import Sensor
 
+class TestSensor2(Sensor):
+    def __init__(self, device):
+        self.device = device
 
-class Sensor(ABC):
-    '''Abstract base class that can be used to implement custom sensor logic.'''
-    
-    @abstractmethod
     def name(self) -> str:
         '''The sensor's (unique) name.'''
-        pass
+        return 'TestSensor 2'
 
-    @abstractmethod
     def device(self):
         '''The device this sensor belongs to.'''
-        pass
+        return self.device
     
-    @abstractmethod
     def preferred_measure_interval(self) -> int:
         '''The preferred interval for doing measurments, in seconds.'''
-        pass
+        return 4
 
-    @abstractmethod
     def unit(self) -> str:
         '''The unit of this sensor's measurements.'''
-        pass
+        return '°F'
     
-    @abstractmethod
     def get_measurement(self) -> float:
         '''Perform a measurements.'''
-        pass
+        return 35 + round(random.random() * 10, 2)
