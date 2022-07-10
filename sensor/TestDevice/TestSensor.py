@@ -4,7 +4,7 @@ from sensor.Sensor import Sensor
 
 class TestSensor(Sensor):
     def __init__(self, device):
-        self.device = device
+        self._device = device
 
     def name(self) -> str:
         '''The sensor's (unique) name.'''
@@ -12,7 +12,7 @@ class TestSensor(Sensor):
 
     def device(self):
         '''The device this sensor belongs to.'''
-        return self.device
+        return self._device
     
     def preferred_measure_interval(self) -> int:
         '''The preferred interval for doing measurments, in seconds.'''
