@@ -13,7 +13,13 @@ class IntervalTimer():
         
     def on_timer(self):
         self.callback(*self.args, **self.kwargs)
-        self.timer.run()
+        self.timer = threading.Timer(self.interval, self.on_timer)
+        self.timer.start()
+
+        # I tried reusing the same timer, but it throws a recursion depth exceeded error.
+        # It seems that Timer.run() somehow introduces a recursion.
+        # That's why I now create a new Timer after each tick.
+        #self.timer.run()
         
     def start_timer(self):
         self.timer.start()
