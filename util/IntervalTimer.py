@@ -12,7 +12,6 @@ class IntervalTimer():
         self.timer.start()
         
     def on_timer(self):
-        print('On timer')
         self.callback(*self.args, **self.kwargs)
         self.timer.run()
         
