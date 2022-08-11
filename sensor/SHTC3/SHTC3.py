@@ -13,11 +13,13 @@ from sensor.SensorDevice import SensorDevice
 from .SHTC3_Temperature import SHTC3_Temperature
 from .SHTC3_Humidity import SHTC3_Humidity
 
+from ..I2CManager import I2CManager
+
 class SHTC3(SensorDevice):
     def __init__(self):
-        i2c = busio.I2C(board.SCL, board.SDA)
+        i2c_manager = I2CManager()
 
-        self.shtc3 = adafruit_shtc3.SHTC3(i2c)
+        self.shtc3 = adafruit_shtc3.SHTC3(i2c_manager.get_i2c())
         
         self.sensors = [
             SHTC3_Temperature(self),

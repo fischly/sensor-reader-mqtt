@@ -13,11 +13,13 @@ from sensor.SensorDevice import SensorDevice
 from .BMP280_Temperature import BMP280_Temperature
 from .BMP280_Pressure import BMP280_Pressure
 
+from ..I2CManager import I2CManager
+
 class BMP280(SensorDevice):
     def __init__(self):
-        i2c = busio.I2C(board.SCL, board.SDA)
+        i2c_manager = I2CManager()
 
-        self.bmp280 = adafruit_bmp280.Adafruit_BMP280_I2C(i2c, address=0x76)
+        self.bmp280 = adafruit_bmp280.Adafruit_BMP280_I2C(i2c_manager.get_i2c(), address=0x76)
         # self.bmp280.sea_level_pressure = 1025.9
         
         self.sensors = [
