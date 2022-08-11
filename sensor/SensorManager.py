@@ -34,16 +34,20 @@ class SensorManager:
             self.timers.append(sensor_timer)
         
             logging.warning('[add_sensor] added the sensor {} with unit {} and a measure interval of {} seconds, belonging to device {} to the SensorManager'.format(sensor.get_name(), sensor.get_unit(), sensor.get_preferred_measure_interval(), sensor.get_device().get_name()))
+            time.sleep(1) # introduce a small delay, so the sensors won't measure at exactly the same time
         
     def do_measurment(self, sensor):
-        measured_value = sensor.get_measurement()
-        print('[do_measurment] self: {0}. sensor: {1} ===> measured: {2}'.format(self, sensor.get_name(), measured_value))
-        
-        # send the sensor name, the measured value and the measuring time in milliseconds since epoch
-        self.mqtt.send_object({ 
-            'name': sensor.get_name(),
-            'value': measured_value,
-            'unit': sensor.get_unit(),
-            'device': sensor.get_device().get_name(),
-            'send_time': time.time_ns() // 1_000_000
-        })
+        try:
+            measured_value = sensor.get_measurement()
+            print('[do_measurment] self: {0}. sensor: {1} ===> measured: {2}'.format(self, sensor.get_name(), measured_value))
+            
+            # send the sensor name, the measured value and the measuring time in milliseconds since epoch
+            self.mqtt.send_object({ 
+                'name': sensor.get_name(),
+                'value': measured_value,
+                'unit': sensor.get_unit(),
+                'device': sensor.get_device().get_name(),
+                'send_time': time.time_ns() // 1_000_000
+            })
+        except:
+            logging.warning('[do_measurement] error while reading out the value or transmitting it via mqtt')

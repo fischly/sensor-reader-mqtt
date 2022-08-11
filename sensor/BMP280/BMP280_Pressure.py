@@ -19,4 +19,4 @@ class BMP280_Pressure(Sensor):
         return 'hPa'
     
     def get_measurement(self) -> float:
-        return self._device.bmp280.temperature
+        return self._device.bmp280.pressure + 51.9 # 51.9 is the adjustement for Klagenfurt being ~446 meters above sea level
