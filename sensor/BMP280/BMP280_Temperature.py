@@ -13,7 +13,7 @@ class BMP280_Temperature(Sensor):
         return self._device
     
     def get_preferred_measure_interval(self) -> int:
-        return 5
+        return 60
 
     def get_unit(self) -> str:
         return '°C'
